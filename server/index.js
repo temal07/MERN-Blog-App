@@ -1,18 +1,17 @@
-const express = require('express');
-const mongoose = require('mongoose');
-require('dotenv').config();
-const userRoute = require('./routes/userRoute');
+import express from 'express';
+import mongoose from 'mongoose';
+import dotenv from 'dotenv';
+import userRoute from './routes/userRoute.js';
 
+dotenv.config();
+const app = express();
 
-mongoose
-    .connect(
+mongoose.connect(
         process.env.MONGO_URI
     )
     .then(() => {
         console.log('MongoDB is connected to the app...');
-    })
-
-const app = express();
+    });
 
 // Test API
 
