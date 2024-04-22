@@ -2,9 +2,12 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import userRoute from './routes/userRoute.js';
+import authRoute from './routes/authRoute.js';
 
 dotenv.config();
 const app = express();
+// JSON is allowed to be used
+app.use(express.json());
 
 mongoose.connect(
         process.env.MONGO_URI
@@ -14,10 +17,10 @@ mongoose.connect(
     });
 
 // Test API
-
+app.use('/api/auth', authRoute);
 app.use('/api/user', userRoute);
 
 app.listen(3000, () => {
-    console.log('Server is up and listening on 3000...');
+    console.log('Server is up and listening on port 3000...');
 });
 
