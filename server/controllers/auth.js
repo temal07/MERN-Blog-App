@@ -1,7 +1,8 @@
 import User from '../models/userModel.js';
 import bcryptjs from "bcryptjs";
+import { errorHandler } from '../utils/errorHandler.js';
 
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
     const { username, email, password } = req.body;
 
     if (
@@ -12,9 +13,7 @@ export const signup = async (req, res) => {
         email === '' ||
         password === ''
     ) {
-        return res.status(400).json({ 
-            message: "All fields are required."
-        })
+        next(errorHandler(400, 'All fields are required.'));
     }
 
     // hash the password so that it isn't seen on MongoDB's website.
@@ -32,6 +31,7 @@ export const signup = async (req, res) => {
         await newUser.save();
         res.json('Signup successful');
     } catch(error) {
-        res.status(500).json({ message: error.message })
+        // use the error from the middleware;
+        next(error);
     }
 }
