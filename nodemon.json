@@ -1,0 +1,8 @@
+{
+    "watch": ["server"],           
+    "ignore": ["node_modules"],    
+    "exec": "node server/index.js", 
+    "legacyWatch": true,           
+    "delay": 500,                  
+    "ext": "js,json"               
+}
